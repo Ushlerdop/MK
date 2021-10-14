@@ -18,14 +18,14 @@ const subZero = {
     },
 }
 
+const $arenas = document.querySelector('.arenas');
+
 function createPlayer(playerClass, playerObject) {
     //проверка на диапозон здоровья от 0 до 100
     if (playerObject.hp < 0 || playerObject.hp > 100) {
         alert ('HP должно быть от 1 до 100');
         return;
     }
-
-    const $arenas = document.querySelector('.arenas');
     
     const $player = document.createElement('div');
     $player.classList.add(playerClass);
