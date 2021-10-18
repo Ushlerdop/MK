@@ -1,6 +1,5 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
-const $loseTitle = createElement('div', 'loseTitle');
 const $restartButton = document.querySelector('.restart__button');
 
 const player1 = {
@@ -67,40 +66,56 @@ function randomDamage() {
     return Math.floor(Math.random() * (21 - 1) + 1);
   }
 
+function checkTheWinner(firstPlayer, secondPlayer) {
+
+    if (firstPlayer.hp === 0 || secondPlayer.hp === 0) {
+        $randomButton.disabled = true;
+    }
+
+    if (firstPlayer.hp === 0) {        
+        $arenas.appendChild(playerWon(secondPlayer.name));
+    }
+
+    if (secondPlayer.hp === 0) {
+        $arenas.appendChild(playerWon(firstPlayer.name));
+    }
+
+    if (firstPlayer.hp === 0 && secondPlayer.hp === 0) {
+        $loseTitle.innerText = `It's a draw`;
+    }
+}
+
+function playerWon(name) {
+    const $loseTitle = createElement('div', 'loseTitle');
+    $loseTitle.innerText = `${name} won!`;
+
+    return $loseTitle;
+}
+
 function changeHP(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
     player.hp -= randomDamage();
-
+    
     if (player.hp <= 0) {
         player.hp = 0;
-        if (player.player === 1){
-            $arenas.appendChild(playerWon(player2.name));
-            $randomButton.disabled = true;
-        } else {
-            $arenas.appendChild(playerWon(player1.name));
-            $randomButton.disabled = true;
-        }
-        
-
-        if (player1.hp === 0 && player2.hp === 0) {
-            $loseTitle.innerText = `It's a draw`;
-        }
-
     }
 
     $playerLife.style.width = player.hp + '%';
     
 }
 
-function playerWon(name) {
-    $loseTitle.innerText = `${name} won!`;
+function elHP() {
 
-    return $loseTitle;
+}
+
+function renderHP() {
+    
 }
 
 $randomButton.addEventListener('click', function () {
     changeHP(player1);
     changeHP(player2);
+    checkTheWinner(player1, player2);
 })
 
 /* добавил кнопку перезагрузки */
