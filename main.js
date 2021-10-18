@@ -1,6 +1,7 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
 const $restartButton = document.querySelector('.restart__button');
+const $loseTitle = createElement('div', 'loseTitle');
 
 const player1 = {
     player: 1,
@@ -11,6 +12,9 @@ const player1 = {
     attack: function() {
         console.log(`${this.name } Fight...`);
     },
+    changeHP: changeHP,
+    elHP: elHP,
+    renderHP: renderHP,
 }
 
 const player2 = {
@@ -22,6 +26,9 @@ const player2 = {
     attack: function() {
         console.log(`${this.name } Fight...`);
     },
+    changeHP: changeHP,
+    elHP: elHP,
+    renderHP: renderHP,
 }
 
 function createElement(tag, className) {
@@ -86,35 +93,32 @@ function checkTheWinner(firstPlayer, secondPlayer) {
 }
 
 function playerWon(name) {
-    const $loseTitle = createElement('div', 'loseTitle');
     $loseTitle.innerText = `${name} won!`;
 
     return $loseTitle;
 }
 
-function changeHP(player) {
-    const $playerLife = document.querySelector('.player' + player.player + ' .life');
-    player.hp -= randomDamage();
+function changeHP(amount) {    
+    this.hp -= amount;
     
-    if (player.hp <= 0) {
-        player.hp = 0;
-    }
-
-    $playerLife.style.width = player.hp + '%';
-    
+    if (this.hp <= 0) {
+        this.hp = 0;
+    }    
 }
 
 function elHP() {
-
+    return document.querySelector('.player' + this.player + ' .life');
 }
 
 function renderHP() {
-    
+    this.elHP().style.width = this.hp + '%';
 }
 
 $randomButton.addEventListener('click', function () {
-    changeHP(player1);
-    changeHP(player2);
+    player1.changeHP(randomDamage());
+    player1.renderHP();
+    player2.changeHP(randomDamage());
+    player2.renderHP();
     checkTheWinner(player1, player2);
 })
 
@@ -125,3 +129,7 @@ $restartButton.addEventListener ('click', function () {
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
+
+console.log(player1.renderHP());
+
+//создать функцию объединяющую elHP и renderHP
