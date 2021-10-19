@@ -1,7 +1,7 @@
 const $arenas = document.querySelector('.arenas');
 const $randomButton = document.querySelector('.button');
-const $restartButton = document.querySelector('.restart__button');
 const $loseTitle = createElement('div', 'loseTitle');
+const $control = document.querySelector('.control');
 
 const player1 = {
     player: 1,
@@ -81,14 +81,17 @@ function checkTheWinner(firstPlayer, secondPlayer) {
 
     if (firstPlayer.hp === 0) {        
         $arenas.appendChild(playerWon(secondPlayer.name));
+        return true;        
     }
 
     if (secondPlayer.hp === 0) {
         $arenas.appendChild(playerWon(firstPlayer.name));
+        return true;
     }
 
     if (firstPlayer.hp === 0 && secondPlayer.hp === 0) {
         $loseTitle.innerText = `It's a draw`;
+        return true;
     }
 }
 
@@ -114,22 +117,35 @@ function renderHP() {
     this.elHP().style.width = this.hp + '%';
 }
 
-$randomButton.addEventListener('click', function () {
-    player1.changeHP(randomDamage());
-    player1.renderHP();
-    player2.changeHP(randomDamage());
-    player2.renderHP();
-    checkTheWinner(player1, player2);
-})
+function playerTurn(player, damage) {
+    player.changeHP(damage);
+    player.renderHP();
+}
 
-/* добавил кнопку перезагрузки */
-$restartButton.addEventListener ('click', function () {
-    location.reload();
-})
+function createReloadButton() {
+    const $reloadWrap = createElement('div', 'reloadWrap');
+    const $reloadButton = createElement('button', 'restart__button');
+
+    $reloadButton.innerText = 'Restart';
+
+    $reloadWrap.appendChild($reloadButton);
+
+    $reloadButton.addEventListener ('click', function () {
+        location.reload();
+    })
+
+    return $reloadWrap;
+}
 
 $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
 
-console.log(player1.renderHP());
-
-//создать функцию объединяющую elHP и renderHP
+$randomButton.addEventListener('click', function () {
+    playerTurn(player1, randomDamage());
+    playerTurn(player2, randomDamage());
+    console.log(checkTheWinner(player1, player2));
+    checkTheWinner(player1, player2);
+    if (checkTheWinner(player1, player2) === true) {        
+        $control.appendChild(createReloadButton());
+    }
+})
