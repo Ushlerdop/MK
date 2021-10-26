@@ -1,9 +1,11 @@
-export const $arenas = document.querySelector('.arenas');
-export const $fightButton = document.querySelector('.control .button');
-export const $loseTitle = createElement('div', 'loseTitle');
-export const $formFight = document.querySelector('.control');
+const $arenas = document.querySelector('.arenas');
+const $fightButton = document.querySelector('.control .button');
+const $loseTitle = createElement('div', 'loseTitle');
+const $formFight = document.querySelector('.control');
+const $reloadWrap = createElement('div', 'reloadWrap');
+const $reloadButton = createElement('button', 'button');
 
-export function createElement(tag, className) {
+function createElement(tag, className) {
     const $tag = document.createElement(tag);
     if (className) {
         $tag.classList.add(className);
@@ -12,24 +14,22 @@ export function createElement(tag, className) {
     return $tag;
 }
 
-export function createPlayer(playerObject) {
+function createPlayer(playerObject) {
     //проверка на диапозон здоровья от 0 до 100
-    let { hp, name, player, img } = playerObject;
-    if (hp < 0 || hp > 100) {
+    if (playerObject.hp < 0 || playerObject.hp > 100) {
         alert ('HP должно быть от 1 до 100');
         return;
     }
     
-    const $player = createElement('div', 'player' + player);
+    const $player = createElement('div', 'player' + playerObject.player);
     const $progressBar = createElement('div', 'progressbar');
     const $life = createElement('div', 'life'); 
     const $name = createElement('div', 'name');
     const $character = createElement('div', 'character');
     const $img = createElement('img');
-
-    $name.innerText = name;
-    $life.style.width = hp + '%';
-    $img.src = img;
+    $name.innerText = playerObject.name;
+    $life.style.width = playerObject.hp + '%';
+    $img.src = playerObject.img;
 
     $progressBar.appendChild($life);
     $progressBar.appendChild($name);  
@@ -42,7 +42,7 @@ export function createPlayer(playerObject) {
     return $player;
 }
 
-export function changeHP(amount) {    
+function changeHP(amount) {    
     this.hp -= amount;
     
     if (this.hp <= 0) {
@@ -50,23 +50,21 @@ export function changeHP(amount) {
     }    
 }
 
-export function elHP() {
+function elHP() {
     return document.querySelector('.player' + this.player + ' .life');
 }
 
-export function renderHP() {
+function renderHP() {
     this.elHP().style.width = `${this.hp}%`;
 }
 
-export function playerWon(name) {
+function playerWon(name) {
     $loseTitle.innerText = `${name} won!`;
 
     return $loseTitle;
 }
 
-export function createReloadButton() {
-    const $reloadWrap = createElement('div', 'reloadWrap');
-    const $reloadButton = createElement('button', 'button');
+function createReloadButton() {
 
     $reloadButton.innerText = 'Restart';
 
@@ -78,3 +76,5 @@ export function createReloadButton() {
 
     $arenas.appendChild($reloadWrap);
 }
+
+export {$arenas, $fightButton, $loseTitle, $formFight, createElement, createPlayer, changeHP, elHP, renderHP, playerWon, createReloadButton}

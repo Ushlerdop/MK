@@ -1,9 +1,10 @@
 import {getRandom} from "./utils.js";
 
-export const date = new Date();
-export const $chat = document.querySelector('.chat');
+const date = new Date();
+const time = date.toLocaleString().slice(12,20);
+const $chat = document.querySelector('.chat');
 
-export const logs = {
+const logs = {
     start: 'Часы показывали [time], когда [player1] и [player2] бросили вызов друг другу.',
     end: [
         'Результат удара [playerWins]: [playerLose] - труп',
@@ -51,9 +52,14 @@ function generateLogs(type, player1, player2, playerValue = 0) {
     let {value: playerDamage} = playerValue;
 
     switch (type) {
-
+        case 'defence':
+            text = `${time} 
+            ${logs[type][getRandom(8)-1]
+            .replace('[playerDefence]', player2Name)
+            .replace('[playerKick]', player1Name)}`;
+            break;
         case 'hit':
-            text = `${date.toLocaleString().slice(12,20)} 
+            text = `${time} 
                 ${logs[type][getRandom(18) - 1]
                 .replace('[playerKick]', player1Name)
                 .replace('[playerDefence]', player2Name)} 
@@ -63,7 +69,7 @@ function generateLogs(type, player1, player2, playerValue = 0) {
 
         case 'start':
             text = `${logs[type]
-                .replace('[time]', date.toLocaleString().slice(12,20))
+                .replace('[time]', time)
                 .replace('[player1]', player1Name)
                 .replace('[player2]', player2Name)}`;
             break;
@@ -82,5 +88,5 @@ function generateLogs(type, player1, player2, playerValue = 0) {
     const el = `<p>${text}</p>`;
     $chat.insertAdjacentHTML('afterbegin', el);
 }
-
+export {date, $chat, logs}
 export default generateLogs

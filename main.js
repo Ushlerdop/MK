@@ -25,10 +25,14 @@ $formFight.addEventListener('submit', function(e) {
     if (enemyHit !== playerDefence) {
         playerTurn(player2, enemyValue);
         generateLogs('hit', player1, player2, enemy);
+    } else {
+        generateLogs('defence', player1, player2);
     }
     if (playerHit !== enemyDefence) {        
         playerTurn(player1, playerValue);
         generateLogs('hit', player2, player1, player);
+    } else {
+        generateLogs('defence', player2, player1);
     }
     checkTheWinner(player1, player2);
     switch (checkTheWinner(player1, player2)) {

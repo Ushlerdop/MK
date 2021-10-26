@@ -1,10 +1,10 @@
 import {$arenas, $fightButton, $loseTitle, playerWon, createReloadButton} from "./documentElements.js";
 
-export function getRandom(max) {
+function getRandom(max) {
     return Math.floor(Math.random() * (max) + 1);
 }
 
-export function checkTheWinner(firstPlayer, secondPlayer) {
+function checkTheWinner(firstPlayer, secondPlayer) {
     let winner = '';
 
     let {hp: firstHp, name: firstName} = firstPlayer;
@@ -30,3 +30,5 @@ export function checkTheWinner(firstPlayer, secondPlayer) {
         return winner = 'draw';
     }
 }
+
+export {getRandom, checkTheWinner}

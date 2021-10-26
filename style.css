@@ -188,6 +188,13 @@ body {
     height: 268px;
 }
 
+.character__action {
+    height: 100px;
+    width: 100px;
+    background-color: #fff;
+    position: relative;
+}
+
 .player1 .character {
     left: 60px;
 }

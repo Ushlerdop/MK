@@ -2,7 +2,8 @@ import {attack} from "./fight.js";
 import {changeHP} from "./documentElements.js";
 import {elHP} from "./documentElements.js";
 import {renderHP} from "./documentElements.js";
-export const player1 = {
+
+const player1 = {
     player: 1,
     name: 'SCORPION',
     hp: 100,
@@ -14,7 +15,7 @@ export const player1 = {
     renderHP,
 }
 
-export const player2 = {
+const player2 = {
     player: 2,
     name: 'SONYA',
     hp: 100,
@@ -25,3 +26,5 @@ export const player2 = {
     elHP,
     renderHP,
 }
+
+export {player1, player2}
