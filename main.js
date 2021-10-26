@@ -87,22 +87,25 @@ function createPlayer(playerObject) {
 function checkTheWinner(firstPlayer, secondPlayer) {
     let winner = '';
 
-    if (firstPlayer.hp === 0 || secondPlayer.hp === 0) {
+    let {hp: firstHp, name: firstName} = firstPlayer;
+    let {hp: secondHp, name: secondName} = secondPlayer;
+
+    if (firstHp === 0 || secondHp === 0) {
         $fightButton.disabled = true;        
         createReloadButton();
     }
 
-    if (firstPlayer.hp === 0) {        
-        $arenas.appendChild(playerWon(secondPlayer.name));
+    if (firstHp === 0) {        
+        $arenas.appendChild(playerWon(secondName));
         return winner = '2';
     }
 
-    if (secondPlayer.hp === 0) {
-        $arenas.appendChild(playerWon(firstPlayer.name));
+    if (secondHp === 0) {
+        $arenas.appendChild(playerWon(firstName));
         return winner = '1';
     }
 
-    if (firstPlayer.hp === 0 && secondPlayer.hp === 0) {
+    if (firstHp === 0 && secondName === 0) {
         $loseTitle.innerText = `It's a draw`;
         return winner = 'draw';
     }
