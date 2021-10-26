@@ -1,3 +1,6 @@
+import getRandom from "./utils.js";
+import logs from "./logs.js";
+
 const $arenas = document.querySelector('.arenas');
 const $fightButton = document.querySelector('.control .button');
 const $loseTitle = createElement('div', 'loseTitle');
@@ -53,21 +56,22 @@ function createElement(tag, className) {
 
 function createPlayer(playerObject) {
     //проверка на диапозон здоровья от 0 до 100
-    if (playerObject.hp < 0 || playerObject.hp > 100) {
+    let { hp, name, player, img } = playerObject;
+    if (hp < 0 || hp > 100) {
         alert ('HP должно быть от 1 до 100');
         return;
     }
     
-    const $player = createElement('div', 'player' + playerObject.player);
+    const $player = createElement('div', 'player' + player);
     const $progressBar = createElement('div', 'progressbar');
     const $life = createElement('div', 'life'); 
     const $name = createElement('div', 'name');
     const $character = createElement('div', 'character');
     const $img = createElement('img');
 
-    $name.innerText = playerObject.name;
-    $life.style.width = playerObject.hp + '%';
-    $img.src = playerObject.img;
+    $name.innerText = name;
+    $life.style.width = hp + '%';
+    $img.src = img;
 
     $progressBar.appendChild($life);
     $progressBar.appendChild($name);  
@@ -79,10 +83,6 @@ function createPlayer(playerObject) {
 
     return $player;
 }
-
-function getRandom(max) {
-    return Math.floor(Math.random() * (max) + 1);
-  }
 
 function checkTheWinner(firstPlayer, secondPlayer) {
     let winner = '';
@@ -167,7 +167,7 @@ function enemyAttack() {
 function playerAttack() {
     const attack = {};
 
-    for (item of $formFight) {
+    for (let item of $formFight) {
         if (item.checked === true && item.name === 'hit') {
             attack.value = getRandom(HIT[item.value]);
             attack.hit = item.value;
