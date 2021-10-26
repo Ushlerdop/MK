@@ -226,14 +226,19 @@ function generateLogs(type, player1, player2, playerValue = 0) {
 
 $formFight.addEventListener('submit', function(e) {
     e.preventDefault();
+
     const enemy = enemyAttack();
     const player = playerAttack();
-    if (enemy.hit !== player.defence) {
-        playerTurn(player2, enemy.value);
+
+    let {hit: enemyHit, defence: enemyDefence, value: enemyValue} = enemy;
+    let {hit: playerHit, defence: playerDefence, value: playerValue} = player;
+
+    if (enemyHit !== playerDefence) {
+        playerTurn(player2, enemyValue);
         generateLogs('hit', player1, player2, enemy);
     }
-    if (player.hit !== enemy.defence) {        
-        playerTurn(player1, player.value);
+    if (playerHit !== enemyDefence) {        
+        playerTurn(player1, playerValue);
         generateLogs('hit', player2, player1, player);
     }
     checkTheWinner(player1, player2);
