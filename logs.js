@@ -55,14 +55,14 @@ function generateLogs(type, player1, player2, playerValue = 0) {
         case 'defence':
             text = `${time} 
             ${logs[type][getRandom(8)-1]
-            .replace('[playerDefence]', player2Name)
-            .replace('[playerKick]', player1Name)}`;
+            .replace('[playerKick]', `<span class="playerKick">${player1Name}</span>`)
+            .replace('[playerDefence]', `<span class="playerDefence">${player2Name}</span>`)}`;
             break;
         case 'hit':
             text = `${time} 
                 ${logs[type][getRandom(18) - 1]
-                .replace('[playerKick]', player1Name)
-                .replace('[playerDefence]', player2Name)} 
+                .replace('[playerKick]', `<span class="playerKick">${player1Name}</span>`)
+                .replace('[playerDefence]', `<span class="playerDefence">${player2Name}</span>`)} 
                 -${playerDamage} 
                 [${player2Hp}/100]`;
             break;

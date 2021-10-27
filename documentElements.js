@@ -4,6 +4,8 @@ const $loseTitle = createElement('div', 'loseTitle');
 const $formFight = document.querySelector('.control');
 const $reloadWrap = createElement('div', 'reloadWrap');
 const $reloadButton = createElement('button', 'button');
+const $hitDefenceMessagePlayer1 = createElement('div', 'hit-defence__message_p1');
+const $hitDefenceMessagePlayer2 = createElement('div', 'hit-defence__message_p2');
 
 function createElement(tag, className) {
     const $tag = document.createElement(tag);
@@ -12,6 +14,35 @@ function createElement(tag, className) {
     }
 
     return $tag;
+}
+
+function showHit(player) {
+    let message;
+    const $character = document.querySelector(`.player${player.player} .character`);
+    switch (player.player) {
+        case 1:
+            message = $character.appendChild($hitDefenceMessagePlayer1);
+            break;
+        case 2:
+            message = $character.appendChild($hitDefenceMessagePlayer2);
+            break;
+    }
+    
+    message.innerText = 'ПРОБИТИЕ';
+}
+
+function showDefence(player) {
+    let message;
+    const $character = document.querySelector(`.player${player.player} .character`);
+    switch (player.player) {
+        case 1:
+            message = $character.appendChild($hitDefenceMessagePlayer1);
+            break;
+        case 2:
+            message = $character.appendChild($hitDefenceMessagePlayer2);
+            break;
+    }
+    message.innerText = 'БЛОК';
 }
 
 function createPlayer(playerObject) {
@@ -77,4 +108,4 @@ function createReloadButton() {
     $arenas.appendChild($reloadWrap);
 }
 
-export {$arenas, $fightButton, $loseTitle, $formFight, createElement, createPlayer, changeHP, elHP, renderHP, playerWon, createReloadButton}
+export {$arenas, $fightButton, $loseTitle, $formFight, $hitDefenceMessagePlayer1, $hitDefenceMessagePlayer2, showHit, showDefence, createElement, createPlayer, changeHP, elHP, renderHP, playerWon, createReloadButton}

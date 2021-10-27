@@ -6,7 +6,7 @@ import { player1, player2 } from "./players.js";
 
 import { enemyAttack, playerAttack,playerTurn } from "./fight.js";
 
-import { createPlayer, $arenas, $formFight } from "./documentElements.js";
+import { createPlayer, $arenas, $formFight, showDefence, showHit } from "./documentElements.js";
 
 /* ----------------------------------------------------всё остальное в экспорт---------------------------------------------------------------------------- */
 
@@ -24,14 +24,19 @@ $formFight.addEventListener('submit', function(e) {
 
     if (enemyHit !== playerDefence) {
         playerTurn(player2, enemyValue);
+        showHit(player2);
         generateLogs('hit', player1, player2, enemy);
     } else {
+        //комп промахивается
+        showDefence(player2);
         generateLogs('defence', player1, player2);
     }
     if (playerHit !== enemyDefence) {        
         playerTurn(player1, playerValue);
+        showHit(player1);
         generateLogs('hit', player2, player1, player);
     } else {
+        showDefence(player1);
         generateLogs('defence', player2, player1);
     }
     checkTheWinner(player1, player2);
@@ -49,3 +54,8 @@ $formFight.addEventListener('submit', function(e) {
 })
 
 generateLogs('start', player1, player2);
+
+const myAwesomeArray = [1, 2, 3, 4, 5];
+myAwesomeArray.forEach(x => x * x);
+
+console.log(myAwesomeArray);

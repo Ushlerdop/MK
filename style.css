@@ -11,6 +11,17 @@
     font-display: swap;
 }
 
+div[class^="hit-defence__message"] {
+    background-color: red;
+    padding: 5px;
+    border-radius: 10px;
+    color: #fff;
+    font-size: 30px;
+    position: absolute;
+    top: -70px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
 
 *,
 *:before,
@@ -181,18 +192,25 @@ body {
     font-family: Arial;
 }
 
+.chat .playerKick {
+    color: red;
+}
+.chat .playerKick::before {
+    content: '⚔ ';
+}
+
+.chat .playerDefence{
+    color: rgb(91, 125, 228);
+}
+
+.chat .playerDefence::before {
+    content: '🛡️';
+}
 .character {
     position: absolute;
     bottom: 20px;
     width: 150px;
     height: 268px;
-}
-
-.character__action {
-    height: 100px;
-    width: 100px;
-    background-color: #fff;
-    position: relative;
 }
 
 .player1 .character {
