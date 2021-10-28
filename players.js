@@ -1,30 +1,45 @@
-import {attack} from "./fight.js";
-import {changeHP} from "./documentElements.js";
-import {elHP} from "./documentElements.js";
-import {renderHP} from "./documentElements.js";
+class Player {
+    constructor(props) {
+        this.player = props.player;
+        this.name = props.name;
+        this.hp = props.hp;
+        this.img = props.img;
+    }
+    attack = () => {
+        console.log(`${this.name } Fight...`);
+    }
+    
+    changeHP = (amount) => {    
+        this.hp -= amount;
+        
+        if (this.hp <= 0) {
+            this.hp = 0;
+        }
+    }    
 
-const player1 = {
+    elHP = () => {
+        return document.querySelector(`.player${this.player} .life`);
+    }  
+
+    renderHP = () => {
+        this.elHP().style.width = `${this.hp}%`;
+    }    
+}
+
+const player1 = new Player ({
     player: 1,
     name: 'SCORPION',
     hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
-    weapon: ['Sword'],
-    attack,
-    changeHP,
-    elHP,
-    renderHP,
-}
+});
 
-const player2 = {
+const player2 = new Player ({
     player: 2,
     name: 'SONYA',
     hp: 100,
     img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
-    weapon: ['Daggers'],
-    attack,
-    changeHP,
-    elHP,
-    renderHP,
-}
+});
+
+console.log(player1, player2);
 
 export {player1, player2}

@@ -10,10 +10,6 @@ const HIT = {
 
 const ATTACK = ['head', 'body', 'foot'];
 
-function attack() {
-    console.log(`${this.name } Fight...`);
-}
-
 function enemyAttack() {
     const hit = ATTACK[getRandom(3) - 1];
     const defence = ATTACK[getRandom(3) - 1];
@@ -47,4 +43,4 @@ function playerTurn(player, damage) {
     player.renderHP();
 }
 
-export {HIT, ATTACK, attack, enemyAttack, playerAttack, playerTurn}
+export {HIT, ATTACK, enemyAttack, playerAttack, playerTurn}

@@ -39,7 +39,9 @@ $formFight.addEventListener('submit', function(e) {
         showDefence(player1);
         generateLogs('defence', player2, player1);
     }
+
     checkTheWinner(player1, player2);
+
     switch (checkTheWinner(player1, player2)) {
         case '1':
             generateLogs('end', player1, player2);
@@ -54,8 +56,3 @@ $formFight.addEventListener('submit', function(e) {
 })
 
 generateLogs('start', player1, player2);
-
-const myAwesomeArray = [1, 2, 3, 4, 5];
-myAwesomeArray.forEach(x => x * x);
-
-console.log(myAwesomeArray);
