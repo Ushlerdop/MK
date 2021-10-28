@@ -40,6 +40,4 @@ const player2 = new Player ({
     img: 'http://reactmarathon-api.herokuapp.com/assets/sonya.gif',
 });
 
-console.log(player1, player2);
-
 export {player1, player2}

@@ -88,5 +88,5 @@ function generateLogs(type, player1, player2, playerValue = 0) {
     const el = `<p>${text}</p>`;
     $chat.insertAdjacentHTML('afterbegin', el);
 }
-export {date, $chat, logs}
-export default generateLogs
+
+export {date, $chat, logs, generateLogs}
