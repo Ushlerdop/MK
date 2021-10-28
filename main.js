@@ -1,21 +1,19 @@
-import {checkTheWinner} from "./utils.js";
-
-import generateLogs from "./logs.js";
-
-import { player1, player2 } from "./players.js";
-
-import { enemyAttack, playerAttack,playerTurn } from "./fight.js";
-
-import { createPlayer, $arenas, $formFight, showDefence, showHit } from "./documentElements.js";
+import Game from './game.js'
 
 /* ----------------------------------------------------всё остальное в экспорт---------------------------------------------------------------------------- */
 
-$arenas.appendChild(createPlayer(player1));
+/* $arenas.appendChild(createPlayer(player1));
 $arenas.appendChild(createPlayer(player2));
 
 $formFight.addEventListener('submit', function(e) {
     e.preventDefault();
+    play();
+    
+})
 
+generateLogs('start', player1, player2);
+
+function play() {
     const enemy = enemyAttack();
     const player = playerAttack();
 
@@ -53,6 +51,8 @@ $formFight.addEventListener('submit', function(e) {
             generateLogs('draw', player1, player2);
             break;
     }
-})
+}    */
 
-generateLogs('start', player1, player2);
+const game = new Game();
+
+game.start();

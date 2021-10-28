@@ -16,7 +16,7 @@ function createElement(tag, className) {
     return $tag;
 }
 
-function showHit(player) {
+/* function showHit(player) {
     let message;
     const $character = document.querySelector(`.player${player.player} .character`);
     switch (player.player) {
@@ -29,9 +29,9 @@ function showHit(player) {
     }
     
     message.innerText = 'ПРОБИТИЕ';
-}
+} */
 
-function showDefence(player) {
+/* function showDefence(player) {
     let message;
     const $character = document.querySelector(`.player${player.player} .character`);
     switch (player.player) {
@@ -43,9 +43,9 @@ function showDefence(player) {
             break;
     }
     message.innerText = 'БЛОК';
-}
+} */
 
-function createPlayer({ player,name, hp, img }) {
+/* function createPlayer({ player,name, hp, img }) {
     //проверка на диапозон здоровья от 0 до 100
     if (hp < 0 || hp > 100) {
         alert ('HP должно быть от 1 до 100');
@@ -71,15 +71,15 @@ function createPlayer({ player,name, hp, img }) {
     $player.appendChild($character);
 
     return $player;
-}
+} */
 
-function playerWon(name) {
+/* function playerWon(name) {
     $loseTitle.innerText = `${name} won!`;
 
     return $loseTitle;
-}
+} */
 
-function createReloadButton() {
+/* function createReloadButton() {
 
     $reloadButton.innerText = 'Restart';
 
@@ -90,6 +90,6 @@ function createReloadButton() {
     })
 
     $arenas.appendChild($reloadWrap);
-}
+} */
 
-export {$arenas, $fightButton, $loseTitle, $formFight, $hitDefenceMessagePlayer1, $hitDefenceMessagePlayer2, showHit, showDefence, createElement, createPlayer, playerWon, createReloadButton}
+export {$arenas, $fightButton, $loseTitle, $formFight, $hitDefenceMessagePlayer1, $reloadButton, $reloadWrap, $hitDefenceMessagePlayer2, /* showHit, */ /* showDefence, */ createElement, /* createPlayer, */ /* playerWon, */ /* createReloadButton */}

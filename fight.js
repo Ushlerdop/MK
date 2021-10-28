@@ -1,16 +1,16 @@
-import {getRandom} from "./utils.js";
+/* import {getRandom} from "./utils.js";
 
-import {$formFight } from "./documentElements.js";
+import {$formFight } from "./documentElements.js"; */
 
-const HIT = {
+/* const HIT = {
     head: 30,
     body: 25,
     foot: 20,
 }
 
-const ATTACK = ['head', 'body', 'foot'];
+const ATTACK = ['head', 'body', 'foot']; */
 
-function enemyAttack() {
+/* function enemyAttack() {
     const hit = ATTACK[getRandom(3) - 1];
     const defence = ATTACK[getRandom(3) - 1];
 
@@ -19,9 +19,9 @@ function enemyAttack() {
         hit,
         defence,
     }
-}
+} */
 
-function playerAttack() {
+/* function playerAttack() {
     const attack = {};
 
     for (let item of $formFight) {
@@ -36,11 +36,11 @@ function playerAttack() {
     }
 
     return attack;
-}
+} */
 
-function playerTurn(player, damage) {
+/* function playerTurn(player, damage) {
     player.changeHP(damage);
     player.renderHP();
-}
+} */
 
-export {HIT, ATTACK, enemyAttack, playerAttack, playerTurn}
+export {/* HIT, ATTACK,  *//* enemyAttack, */ /* playerAttack, */ /* playerTurn */}
