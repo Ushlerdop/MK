@@ -53,31 +53,39 @@ function generateLogs(type, player1, player2, playerValue = 0) {
 
     switch (type) {
         case 'defence':
-            text = `${time} 
+            text = `<span class='time'>${time}</span>
             ${logs[type][getRandom(8)-1]
             .replace('[playerKick]', `<span class="playerKick">${player1Name}</span>`)
             .replace('[playerDefence]', `<span class="playerDefence">${player2Name}</span>`)}`;
             break;
+
         case 'hit':
-            text = `${time} 
-                ${logs[type][getRandom(18) - 1]
-                .replace('[playerKick]', `<span class="playerKick">${player1Name}</span>`)
-                .replace('[playerDefence]', `<span class="playerDefence">${player2Name}</span>`)} 
-                -${playerDamage} 
-                [${player2Hp}/100]`;
+            text = `<span class='time'>${time}</span>
+            ${logs[type][getRandom(18) - 1]
+            .replace('[playerKick]', `<span class="playerKick">${player1Name}</span>`)
+            .replace('[playerDefence]', `<span class="playerDefence">${player2Name}</span>`)} 
+            <span class = 'log-damage'>-${playerDamage}</span>`;
+            if (player2Hp >= 66) {
+                text = `${text} <span class = 'high-player-hp'>[${player2Hp}/100]</span>`;
+            } else if (player2Hp < 66 && player2Hp > 33) {
+                text = `${text} <span class = 'medium-player-hp'>[${player2Hp}/100]</span>`;
+            } else if (player2Hp <= 33) {
+                text = `${text} <span class = 'low-player-hp'>[${player2Hp}/100]</span>`;
+            }            
             break;
 
         case 'start':
             text = `${logs[type]
-                .replace('[time]', time)
+                .replace('[time]', `<span class='time'>${time}</span>`)
                 .replace('[player1]', player1Name)
                 .replace('[player2]', player2Name)}`;
             break;
 
         case 'end':
             text = `${logs[type][getRandom(3) - 1]
-                .replace('[playerWins]', player1Name)
-                .replace('[playerLose]', player2Name)}`;
+                .replace('[playerWins]', `✊${player1Name}`)
+                .replace('[playerLose]', `💀${player2Name}`)}`;
+            text = `<span class = 'log-end'>${text}</span>`
             break;
 
         case 'draw':

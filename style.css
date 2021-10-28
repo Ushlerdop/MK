@@ -12,7 +12,7 @@
 }
 
 div[class^="hit-defence__message"] {
-    background-color: red;
+    background-color: rgba(0, 0, 0, 0.6);
     padding: 5px;
     border-radius: 10px;
     color: #fff;
@@ -21,6 +21,31 @@ div[class^="hit-defence__message"] {
     top: -70px;
     left: 50%;
     transform: translate(-50%, 0);
+    box-shadow: 0 0 10px -2px red;
+}
+
+.time {
+    color: #b7fff5;
+}
+
+.high-player-hp{
+    color: rgb(0, 226, 57);
+}
+.medium-player-hp{
+    color: rgb(255, 230, 0);
+}
+.low-player-hp{
+    color: rgb(255, 123, 0);
+}
+
+.log-damage {
+    color: rgb(137, 158, 255);
+}
+
+.log-end {
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
 }
 
 *,
@@ -200,7 +225,8 @@ body {
 }
 
 .chat .playerDefence{
-    color: rgb(91, 125, 228);
+    color: rgb(0, 225, 255);
+    /* rgb(91, 125, 228); */
 }
 
 .chat .playerDefence::before {
@@ -347,8 +373,8 @@ form:invalid button[class=button]:active::after {
 
 .control {
     position: absolute;
-    width: 200px;
-    top: 60%;
+    width: 300px;
+    top: 62%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
@@ -356,6 +382,14 @@ form:invalid button[class=button]:active::after {
     align-items: center;
     flex-direction: column;
     z-index: 1000;
+    box-shadow: 0 0 10px 2px red;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+}
+
+.control div h2 {
+    text-shadow: 0px 0px 3px orange, 0px 0px 20px white;
 }
 
 .inputWrap {
