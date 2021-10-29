@@ -2,7 +2,7 @@ import {getRandom} from "./utils.js";
 
 import {generateLogs} from "./logs.js";
 
-import { player1, player2 } from "./players.js";
+import { Player } from "./players.js";
 
 import {createElement, $arenas, $formFight, $fightButton, $loseTitle, $hitDefenceMessagePlayer1, $hitDefenceMessagePlayer2, $reloadButton, $reloadWrap } from "./documentElements.js";
 
@@ -12,10 +12,30 @@ const HIT = {
     foot: 20,
 }
 
+let player1;
+let player2;
+
 const ATTACK = ['head', 'body', 'foot'];
 
 class Game{
-    start = () => {
+    start = async () => {
+        const players = await this.getPlayers();
+        console.log(players);
+        let p1 = players[getRandom(players.length) -1];
+        let p2 = players[getRandom(players.length) -1];
+        console.log(p1, p2);
+        player1 = new Player({
+            ...p1,
+            player: 1,
+            rootSelector: 'arenas',
+        });
+        console.log(player1);
+        player2 = new Player({
+            ...p2,
+            player: 2,
+            rootSelector: 'arenas',
+        });        
+
         $arenas.appendChild(this.createPlayer(player1));
         $arenas.appendChild(this.createPlayer(player2));
 
@@ -23,6 +43,11 @@ class Game{
 
         generateLogs('start', player1, player2);
    
+    }
+
+    getPlayers = async () => {
+        const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then( res => res.json());
+        return body;
     }
 
     playerTurn = (player, damage) => {
