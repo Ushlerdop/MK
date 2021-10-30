@@ -22,7 +22,7 @@ class Game{
         const enemy = await this.getEnemyPlayer();
         const player = await this.getPlayer();
 
-        let p2 = enemy;
+        let p2 = JSON.parse(localStorage.getItem('player2'));
         let p1 = JSON.parse(localStorage.getItem('player1'));
 
         player1 = new Player({
@@ -102,47 +102,6 @@ class Game{
         return result;
     }
 
-    play = event => {        
-        event.preventDefault();
-        const enemy = this.enemyAttack();
-        const player = this.playerAttack();
-
-        let {hit: enemyHit, defence: enemyDefence, value: enemyValue} = enemy;
-        let {hit: playerHit, defence: playerDefence, value: playerValue} = player;
-
-        if (enemyHit !== playerDefence) {
-            this.playerTurn(player2, enemyValue);
-            this.showHit(player2);
-            generateLogs('hit', player1, player2, enemy);
-        } else {
-            //комп промахивается
-            this.showDefence(player2);
-            generateLogs('defence', player1, player2);
-        }
-        if (playerHit !== enemyDefence) {        
-            this.playerTurn(player1, playerValue);
-            this.showHit(player1);
-            generateLogs('hit', player2, player1, player);
-        } else {
-            this.showDefence(player1);
-            generateLogs('defence', player2, player1);
-        }
-
-        this.checkTheWinner(player1, player2);
-
-        switch (this.checkTheWinner(player1, player2)) {
-            case '1':
-                generateLogs('end', player1, player2);
-                break;
-            case '2':
-                generateLogs('end', player2, player1);
-                break;
-            case 'draw':
-                generateLogs('draw', player1, player2);
-                break;
-        }
-    }
-
     getPlayer = async () => {
         const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then( res => res.json());
         return body;
@@ -177,7 +136,7 @@ class Game{
         $reloadWrap.appendChild($reloadButton);
     
         $reloadButton.addEventListener ('click', function () {
-            location.reload();
+            window.location.pathname = 'index.html';
         })
     
         $arenas.appendChild($reloadWrap);

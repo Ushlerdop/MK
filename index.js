@@ -1,5 +1,8 @@
+import {getRandom} from "./utils.js";
+
 const $parent = document.querySelector('.parent');
 const $player = document.querySelector('.player');
+const $enemy = document.querySelector('.enemy');
 
 const createElement = (tag, className) => {
     const $tag = document.createElement(tag);
@@ -27,10 +30,12 @@ function createEmptyPlayerBlock() {
 
 async function init() {
     localStorage.removeItem('player1');
+    localStorage.removeItem('player2');
 
     const players = await fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then(res => res.json());
 
     let imgSrc = null;
+    let imgEnemySrc = null;
     createEmptyPlayerBlock();
 
 
@@ -64,7 +69,7 @@ async function init() {
 
             el.classList.add('active');
 
-            
+
 
             setTimeout(() => {
                 // TODO: Здесь должен быть код который перенаправит вас на ваше игровое поле...
@@ -78,7 +83,18 @@ async function init() {
 
         el.appendChild(img);
         $parent.appendChild(el);
-    });
+    });    
+
+    function initEnemy() {
+        let enemyCharacter = players[getRandom(23)-1];
+        localStorage.setItem('player2', JSON.stringify(enemyCharacter));
+        imgEnemySrc = enemyCharacter.img;
+                const $img = createElement('img');
+                $img.src = imgEnemySrc;
+                $enemy.appendChild($img);
+    }
+    
+    initEnemy();
 }
 
 init();
