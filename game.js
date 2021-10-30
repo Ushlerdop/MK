@@ -102,33 +102,6 @@ class Game{
         return result;
     }
 
-    playerAttack = () => {
-        const attack = {};
-    
-        for (let item of $formFight) {
-            if (item.checked === true && item.name === 'hit') {
-                attack.value = getRandom(HIT[item.value]);
-                attack.hit = item.value;
-            }
-            if (item.checked === true && item.name === 'defence') {
-                attack.defence = item.value;
-            }
-            item.checked = false;
-        }
-    
-        return attack;
-    }
-    /* getFetch = async () => {
-        let a = await fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
-            method: 'POST',
-            body: JSON.stringify({
-                hit,
-                defence,
-            })
-        });
-        return a;
-    } */
-
     play = event => {        
         event.preventDefault();
         const enemy = this.enemyAttack();
