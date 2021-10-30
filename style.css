@@ -183,6 +183,7 @@ body {
     background-color: #0431f9;
     height: 100%;
     width: 90%;
+    transition-duration: 0.5s;
 }
 
 .name {

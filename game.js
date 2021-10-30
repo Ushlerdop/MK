@@ -19,34 +19,164 @@ const ATTACK = ['head', 'body', 'foot'];
 
 class Game{
     start = async () => {
-        const players = await this.getPlayers();
-        console.log(players);
-        let p1 = players[getRandom(players.length) -1];
-        let p2 = players[getRandom(players.length) -1];
-        console.log(p1, p2);
+        const enemy = await this.getEnemyPlayer();
+        const player = await this.getPlayer();
+
+        let p1 = enemy;
+        let p2 = player[getRandom(player.length) -1];
+
         player1 = new Player({
             ...p1,
             player: 1,
-            rootSelector: 'arenas',
         });
-        console.log(player1);
         player2 = new Player({
             ...p2,
             player: 2,
-            rootSelector: 'arenas',
         });        
 
         $arenas.appendChild(this.createPlayer(player1));
         $arenas.appendChild(this.createPlayer(player2));
 
-        $formFight.addEventListener('submit', this.play)
+        $formFight.addEventListener('submit', this.fight)
 
         generateLogs('start', player1, player2);
    
     }
 
-    getPlayers = async () => {
+    fight = async event => {           
+        event.preventDefault();
+
+        console.log(this.enemyAttack());
+
+        const enemy = this.enemyAttack();
+        const player = this.playerAttack();
+
+        let {hit: enemyHit, defence: enemyDefence, value: enemyValue} = enemy;
+        let {hit: playerHit, defence: playerDefence, value: playerValue} = player;
+
+        if (enemyHit !== playerDefence) {
+            this.playerTurn(player2, enemyValue);
+            this.showHit(player2);
+            generateLogs('hit', player1, player2, enemy);
+        } else {
+            //комп промахивается
+            this.showDefence(player2);
+            generateLogs('defence', player1, player2);
+        }
+        if (playerHit !== enemyDefence) {        
+            this.playerTurn(player1, playerValue);
+            this.showHit(player1);
+            generateLogs('hit', player2, player1, player);
+        } else {
+            this.showDefence(player1);
+            generateLogs('defence', player2, player1);
+        }
+
+        this.checkTheWinner(player1, player2);
+
+        switch (this.checkTheWinner(player1, player2)) {
+            case '1':
+                generateLogs('end', player1, player2);
+                break;
+            case '2':
+                generateLogs('end', player2, player1);
+                break;
+            case 'draw':
+                generateLogs('draw', player1, player2);
+                break;
+        }
+    }
+
+    enemyAttack = async ({hit, defence} = playerAttack()) => {       
+
+        let attack = await fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
+            method: 'POST',
+            body: JSON.stringify({
+                hit,
+                defence,
+            })
+        });
+
+        let result = await attack.json();
+    
+        return result;
+    }
+
+    playerAttack = () => {
+        const attack = {};
+    
+        for (let item of $formFight) {
+            if (item.checked === true && item.name === 'hit') {
+                attack.value = getRandom(HIT[item.value]);
+                attack.hit = item.value;
+            }
+            if (item.checked === true && item.name === 'defence') {
+                attack.defence = item.value;
+            }
+            item.checked = false;
+        }
+    
+        return attack;
+    }
+    /* getFetch = async () => {
+        let a = await fetch('http://reactmarathon-api.herokuapp.com/api/mk/player/fight', {
+            method: 'POST',
+            body: JSON.stringify({
+                hit,
+                defence,
+            })
+        });
+        return a;
+    } */
+
+    play = event => {        
+        event.preventDefault();
+        const enemy = this.enemyAttack();
+        const player = this.playerAttack();
+
+        let {hit: enemyHit, defence: enemyDefence, value: enemyValue} = enemy;
+        let {hit: playerHit, defence: playerDefence, value: playerValue} = player;
+
+        if (enemyHit !== playerDefence) {
+            this.playerTurn(player2, enemyValue);
+            this.showHit(player2);
+            generateLogs('hit', player1, player2, enemy);
+        } else {
+            //комп промахивается
+            this.showDefence(player2);
+            generateLogs('defence', player1, player2);
+        }
+        if (playerHit !== enemyDefence) {        
+            this.playerTurn(player1, playerValue);
+            this.showHit(player1);
+            generateLogs('hit', player2, player1, player);
+        } else {
+            this.showDefence(player1);
+            generateLogs('defence', player2, player1);
+        }
+
+        this.checkTheWinner(player1, player2);
+
+        switch (this.checkTheWinner(player1, player2)) {
+            case '1':
+                generateLogs('end', player1, player2);
+                break;
+            case '2':
+                generateLogs('end', player2, player1);
+                break;
+            case 'draw':
+                generateLogs('draw', player1, player2);
+                break;
+        }
+    }
+
+    getPlayer = async () => {
         const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/players').then( res => res.json());
+        return body;
+    }
+
+    getEnemyPlayer = async () => {
+        const body = fetch('https://reactmarathon-api.herokuapp.com/api/mk/player/choose').then( res => res.json());
         return body;
     }
 
@@ -191,47 +321,7 @@ class Game{
     
         return $player;
     }
-
-    play = event => {        
-        event.preventDefault();
-        const enemy = this.enemyAttack();
-        const player = this.playerAttack();
-
-        let {hit: enemyHit, defence: enemyDefence, value: enemyValue} = enemy;
-        let {hit: playerHit, defence: playerDefence, value: playerValue} = player;
-
-        if (enemyHit !== playerDefence) {
-            this.playerTurn(player2, enemyValue);
-            this.showHit(player2);
-            generateLogs('hit', player1, player2, enemy);
-        } else {
-            //комп промахивается
-            this.showDefence(player2);
-            generateLogs('defence', player1, player2);
-        }
-        if (playerHit !== enemyDefence) {        
-            this.playerTurn(player1, playerValue);
-            this.showHit(player1);
-            generateLogs('hit', player2, player1, player);
-        } else {
-            this.showDefence(player1);
-            generateLogs('defence', player2, player1);
-        }
-
-        this.checkTheWinner(player1, player2);
-
-        switch (this.checkTheWinner(player1, player2)) {
-            case '1':
-                generateLogs('end', player1, player2);
-                break;
-            case '2':
-                generateLogs('end', player2, player1);
-                break;
-            case 'draw':
-                generateLogs('draw', player1, player2);
-                break;
-        }
-    }
+    
 }
 
 export default Game
