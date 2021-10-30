@@ -22,8 +22,8 @@ class Game{
         const enemy = await this.getEnemyPlayer();
         const player = await this.getPlayer();
 
-        let p1 = enemy;
-        let p2 = player[getRandom(player.length) -1];
+        let p2 = enemy;
+        let p1 = JSON.parse(localStorage.getItem('player1'));
 
         player1 = new Player({
             ...p1,
