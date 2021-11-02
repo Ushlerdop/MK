@@ -175,3 +175,24 @@ body {
 .character img {
     width: 100%;
 }
+
+
+@media (max-width: 1000px) {
+    html {
+      transform: rotate(90deg) scale(0.5);
+      background-color:#424466;
+    }
+
+    body {
+        display: flex;
+        justify-content: center;
+    }
+
+    .enemy {
+        bottom: 44px;
+        left: 102%;
+        margin-left: -105px;
+        transform: translate(-0%, 0px);
+        transform: scaleX(-1);
+    }
+}

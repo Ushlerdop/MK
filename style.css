@@ -467,3 +467,43 @@ input[type=radio]:checked + label > span::before {
 input[type=radio]:checked + label > span:hover {
     background: none;
 }
+
+@media (max-width: 1000px) {
+    html {
+      transform: rotate(90deg);
+      background-color:#424466;
+      overflow: hidden;
+    }
+
+    body {
+        transform: scale(0.8);
+        background-color: #fff;
+    }
+    .control {
+        top: 70%;
+    }
+
+    .progressbar {
+        transform: scale(1.1);
+        top: 30%;
+    }
+
+    .progressbar .name {
+        transform: scale(0.85);
+    }
+
+    .player1 .progressbar {
+        left: 13%;
+    }
+    
+    .player2 .progressbar {
+        right: 14%;
+    }
+    .player1 .name {
+        left: -5px;
+    }
+    
+    .player2 .name {
+        right: -5px;
+    }
+}
