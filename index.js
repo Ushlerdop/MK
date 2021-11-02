@@ -43,23 +43,30 @@ async function init() {
         const el = createElement('div', ['character', `div${item.id}`]);
         const img = createElement('img');
 
-        el.addEventListener('mousemove', () => {
+        
+
+        let mouseMove = () => {
             if (imgSrc === null) {
                 imgSrc = item.img;
                 const $img = createElement('img');
                 $img.src = imgSrc;
                 $player.appendChild($img);
             }
-        });
+        }
 
-        el.addEventListener('mouseout', () => {
+        let mouseOut = () => {
             if (imgSrc) {
                 imgSrc = null;
                 $player.innerHTML = '';
             }
-        });
+        }
 
-        el.addEventListener('click', (e) => {
+        el.addEventListener('mouseout', mouseOut);
+        
+        el.addEventListener('mousemove', mouseMove);
+
+        el.addEventListener('click', (e) => {el.removeEventListener("mouseout", mouseOut);
+        el.removeEventListener("mousemove", mouseMove);
             e.preventDefault();
             //TODO: Мы кладем нашего игрока в localStorage что бы потом на арене его достать.
             // При помощи localStorage.getItem('player1'); т.к. в localStorage кладется строка,
@@ -68,14 +75,41 @@ async function init() {
             localStorage.setItem('player1', JSON.stringify(item));
 
             el.classList.add('active');
+            
+            
 
-
+            async function initEnemy() {
+                imgEnemySrc = null;
+                $enemy.innerHTML = '';
+                let enemyCharacter = players[getRandom(23)-1];
+                let enemyEl = document.querySelector(`.div${enemyCharacter.id}`);
+                
+                if (!!(document.querySelector(`.character-enemy`))) {
+                    enemyEl.classList.remove(`character-enemy`);
+                }
+        
+                enemyEl.classList.add(`character-enemy`);
+                console.log(enemyCharacter);
+                localStorage.setItem('player2', JSON.stringify(enemyCharacter));
+                imgEnemySrc = enemyCharacter.img;
+                const $img = createElement('img');
+                $img.src = imgEnemySrc;
+                $enemy.appendChild($img);
+            }
+            
+            setInterval(() => {
+                if (!!(document.querySelector(`.character-enemy`))) {
+                    let enemyEl = document.querySelector(`.character-enemy`);
+                    enemyEl.classList.remove(`character-enemy`);
+                }
+                initEnemy();
+            }, 1000);
 
             setTimeout(() => {
                 // TODO: Здесь должен быть код который перенаправит вас на ваше игровое поле...
                 //  Пример использования: window.location.pathname = 'arenas.html';
                 window.location.pathname = 'arena.html';
-            }, 100);
+            }, 3900);
         });
 
         img.src = item.avatar;
@@ -85,16 +119,40 @@ async function init() {
         $parent.appendChild(el);
     });    
 
-    function initEnemy() {
+    /* async function initEnemy() {
+        imgEnemySrc = null;
+        $enemy.innerHTML = '';
         let enemyCharacter = players[getRandom(23)-1];
+        let enemyEl = document.querySelector(`.div${enemyCharacter.id}`);
+        
+        if (!!(document.querySelector(`.character-enemy`))) {
+            enemyEl.classList.remove(`character-enemy`);
+        }
+
+        enemyEl.classList.add(`character-enemy`);
+        console.log(enemyCharacter);
         localStorage.setItem('player2', JSON.stringify(enemyCharacter));
         imgEnemySrc = enemyCharacter.img;
-                const $img = createElement('img');
-                $img.src = imgEnemySrc;
-                $enemy.appendChild($img);
+        const $img = createElement('img');
+        $img.src = imgEnemySrc;
+        $enemy.appendChild($img);
     }
     
-    initEnemy();
+    setTimeout(() => {
+        if (!!(document.querySelector(`.character-enemy`))) {
+            let enemyEl = document.querySelector(`.character-enemy`);
+            enemyEl.classList.remove(`character-enemy`);
+        }
+        initEnemy();
+    }, 1000);
+
+    setTimeout(() => {
+        if (!!(document.querySelector(`.character-enemy`))) {
+            let enemyEl = document.querySelector(`.character-enemy`);
+            enemyEl.classList.remove(`character-enemy`);
+        }
+        initEnemy();
+    }, 3000); */
 }
 
 init();
