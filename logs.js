@@ -1,7 +1,7 @@
 import {getRandom} from "./utils.js";
 
 const date = new Date();
-const time = date.toLocaleString().slice(12,17);
+const time = date.toLocaleString('en-GB').slice(12,17);
 const $chat = document.querySelector('.chat');
 
 const logs = {
