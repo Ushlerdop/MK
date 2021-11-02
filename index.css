@@ -145,7 +145,7 @@ body {
     top: -2px;
     left: -2px;
     position: absolute;
-    border: 14px solid #aa8621;
+    border: 14px solid #ff0000;
 }
 
 .character:hover,
@@ -181,11 +181,16 @@ body {
     html {
       transform: rotate(90deg) scale(0.5);
       background-color:#424466;
+      overflow: hidden;
     }
 
     body {
         display: flex;
         justify-content: center;
+    }
+
+    .root {
+        background-color:#424466;
     }
 
     .enemy {

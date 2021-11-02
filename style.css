@@ -222,7 +222,7 @@ body {
     color: red;
 }
 .chat .playerKick::before {
-    content: '⚔ ';
+    content: '👊 ';
 }
 
 .chat .playerDefence{
