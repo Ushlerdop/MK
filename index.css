@@ -201,3 +201,26 @@ body {
         transform: scaleX(-1);
     }
 }
+
+@media only screen and (min-width: 415px) and (max-width: 1279px) {
+    html {
+        transform: rotate(0deg) scale(0.5);
+    }   
+
+    body *{
+        top: -180%;
+    }
+
+    .title {
+        top: -50%;
+    }
+
+    .enemy {
+        top: 8%;
+        left: 105%;
+    }
+    .player {
+        top: 8%;
+        left: 49%;
+    }
+}

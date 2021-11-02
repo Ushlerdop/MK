@@ -507,3 +507,58 @@ input[type=radio]:checked + label > span:hover {
         right: -5px;
     }
 }
+
+@media only screen and (min-width: 415px) and (max-width: 1279px) {
+    html {
+        transform: rotate(0deg);
+    }
+
+    .root {
+        transform: scale(1.249);
+    }
+    .progressbar {
+        transform: scale(1.1);
+        top: 2%;
+    }
+    .control {
+        left: 50%;
+        top: 10%;
+        display: flex;
+        transform: translate(-50%) scale(0.8);
+    }
+    .wall-left {
+        transform: scale(2);
+        left: 0;
+    }
+    .wall-right {
+        transform: scale(2);
+        right: -10%;
+    }
+
+    .arenas {
+        height: 87vh;
+    }
+
+    div[class^="hit-defence__message"] {
+        padding: 5px;
+        border-radius: 10px;
+        font-size: 20px;
+        position: absolute;
+        top: -9%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        box-shadow: 0 0 10px -2px red;
+    }
+
+    .character img {
+        height: 95%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }    
+
+    .chat p {
+        margin-top: 0;
+    }
+}
