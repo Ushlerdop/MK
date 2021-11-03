@@ -3,9 +3,8 @@ import {getRandom} from "./utils.js";
 const $parent = document.querySelector('.parent');
 const $player = document.querySelector('.player');
 const $enemy = document.querySelector('.enemy');
-const $root = document.querySelector('.root');
 
-const $plug = createElement('div', 'plug');
+let canChooseCharacter = true;
 
 function createElement (tag, className) {
     const $tag = document.createElement(tag);
@@ -40,17 +39,12 @@ async function init() {
     let imgEnemySrc = null;
     createEmptyPlayerBlock();
 
-
-    let element = [];
-
     players.forEach(item => {
         const el = createElement('div', ['character', `div${item.id}`]);
         const img = createElement('img');
 
-        /* element = element.concat(el); */
-
         let mouseMove = () => {
-            if (imgSrc === null) {
+            if (canChooseCharacter && imgSrc === null) {
                 imgSrc = item.img;
                 const $img = createElement('img');
                 $img.src = imgSrc;
@@ -59,7 +53,7 @@ async function init() {
         }
 
         let mouseOut = () => {
-            if (imgSrc) {
+            if (canChooseCharacter && imgSrc) {
                 imgSrc = null;
                 $player.innerHTML = '';
             }
@@ -71,6 +65,9 @@ async function init() {
 
         el.addEventListener('click', (e) => {
             e.preventDefault();
+
+            canChooseCharacter = false;
+            $parent.style.pointerEvents = 'none';
             //TODO: Мы кладем нашего игрока в localStorage что бы потом на арене его достать.
             // При помощи localStorage.getItem('player1'); т.к. в localStorage кладется строка,
             // то мы должны ее распарсить обратным методом JSON.parse(localStorage.getItem('player1'));
@@ -78,16 +75,6 @@ async function init() {
             localStorage.setItem('player1', JSON.stringify(item));
 
             el.classList.add('active');
-
-            $root.appendChild($plug);
-
-            el.removeEventListener('mouseout', mouseOut);
-            
-            /* element.forEach(item => {
-                item.removeEventListener('mousemove', mouseMove);
-                item.removeEventListener('mouseout', mouseOut);
-                console.log(item);
-            }); */
 
             async function initEnemy() {
                 imgEnemySrc = null;
