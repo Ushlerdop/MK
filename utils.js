@@ -2,4 +2,8 @@ function getRandom(max) {
     return Math.floor(Math.random() * (max) + 1);
 }
 
-export {getRandom}
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+export {sleep, getRandom}

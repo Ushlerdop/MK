@@ -1,4 +1,4 @@
-import {getRandom} from "./utils.js";
+import {sleep, getRandom} from "./utils.js";
 
 import {generateLogs} from "./logs.js";
 
@@ -14,6 +14,10 @@ const HIT = {
 
 let player1;
 let player2;
+
+        
+let $firstPlayerImage;
+let $secondPlayerImage;
 
 const ATTACK = ['head', 'body', 'foot'];
 
@@ -40,13 +44,10 @@ class Game{
         $formFight.addEventListener('submit', this.fight)
 
         generateLogs('start', player1, player2);
-   
     }
 
-    fight = async event => {           
+    fight = async event => {       
         event.preventDefault();
-
-        console.log(this.enemyAttack());
 
         const enemy = this.enemyAttack();
         const player = this.playerAttack();
@@ -55,22 +56,59 @@ class Game{
         let {hit: playerHit, defence: playerDefence, value: playerValue} = player;
 
         if (enemyHit !== playerDefence) {
+            this.showFormFight();
+            this.hideFormFight();   
+            await sleep(400);
+
             this.playerTurn(player2, enemyValue);
             this.showHit(player2);
             generateLogs('hit', player1, player2, enemy);
+
+            await this.attack(player1);
+               
+            await sleep(400);  
+            this.showFormFight();
         } else {
+            this.showFormFight();
+            this.hideFormFight();   
+            await sleep(400);  
             //комп промахивается
             this.showDefence(player2);
             generateLogs('defence', player1, player2);
+
+            await this.attack(player1);
+               
+            await sleep(400);  
+            this.showFormFight();
         }
-        if (playerHit !== enemyDefence) {        
+        if (playerHit !== enemyDefence) {  
+            this.showFormFight();     
+            this.hideFormFight();   
+            await sleep(400);  
+
             this.playerTurn(player1, playerValue);
             this.showHit(player1);
             generateLogs('hit', player2, player1, player);
+
+            await this.attack(player2);   
+
+            await sleep(400);
+            this.showFormFight();
         } else {
+            this.showFormFight();
+            this.hideFormFight();   
+            await sleep(400);  
+
             this.showDefence(player1);
             generateLogs('defence', player2, player1);
+            
+            await this.attack(player2);   
+   
+            await sleep(400);  
+            this.showFormFight();
         }
+
+        
 
         this.checkTheWinner(player1, player2);
 
@@ -85,6 +123,13 @@ class Game{
                 generateLogs('draw', player1, player2);
                 break;
         }
+    }
+
+    attack = async ({player}) => {
+        player = document.querySelector(`.player${player} .character img`);
+        player.classList.add('attack');
+        await sleep(1000);
+        player.classList.remove('attack');
     }
 
     enemyAttack = async ({hit, defence} = playerAttack()) => {       
@@ -112,9 +157,17 @@ class Game{
         return body;
     }
 
-    playerTurn = (player, damage) => {
+    playerTurn = async (player, damage) => {
         player.changeHP(damage);
         player.renderHP();
+    }
+    
+    hideFormFight = async () => {
+        $formFight.classList.add('hide');
+    }
+
+    showFormFight = async () => {   
+        $formFight.classList.remove('hide');
     }
 
     playerWon = (name) => {
@@ -250,7 +303,7 @@ class Game{
     
         $player.appendChild($progressBar);
         $player.appendChild($character);
-    
+
         return $player;
     }
     

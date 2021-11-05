@@ -134,7 +134,7 @@ body {
 .player1,
 .player2 {
     width: 50%;
-    position: relative;
+    /* position: relative; */
 }
 
 .progressbar {
@@ -252,14 +252,27 @@ body {
     transform: scaleX(-1) translate(50%, 0);
 }
 
+.player2 .character img.attack {
+    transform: scaleX(-1) translate(310%, 0);
+}
+
 .character img {
     height: 100%;
     position: absolute;
     bottom: 0;
     left: 50%;
     transform: translate(-50%, 0);
+    transition: transform 0.5s;
 }
 
+.character img.attack {
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(200%, 0);
+    transition: transform 0.5s;
+}
 
 .fight {
     position: absolute;
@@ -374,10 +387,12 @@ form:invalid button[class=button]:active::after {
 
 .control {
     position: absolute;
+    transition: transform 0.5s;
+    transform-origin: center center;
     width: 300px;
-    top: 62%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    transform: scale(1);
+    top: 37%;
+    left: 31%;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -387,6 +402,11 @@ form:invalid button[class=button]:active::after {
     border-radius: 10px;
     background-color: rgba(0, 0, 0, 0.7);
     padding: 10px;
+}
+
+.control.hide {
+    transition: transform 0.5s;
+    transform: scale(0);
 }
 
 .control div h2 {
