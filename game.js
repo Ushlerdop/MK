@@ -46,7 +46,7 @@ const ANIMATIONS = [
         ],
         gothit: `./assets/fighters/reptile/reptile-noblock.png`,
         victory: `./assets/fighters/reptile/reptile-victory.gif`,
-        defeat: `./assets/fighters/reptile/reptile-dizzy.gif`,
+        defeat: `./assets/fighters/reptile/reptile-dizzy.png`,
     },
     {
         id: 3,
