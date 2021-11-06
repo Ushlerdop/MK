@@ -4,7 +4,7 @@ import {generateLogs} from "./logs.js";
 
 import { Player } from "./players.js";
 
-import {createElement, $arenas, $formFight, $fightButton, $loseTitle, $hitDefenceMessagePlayer1, $hitDefenceMessagePlayer2, $reloadButton, $reloadWrap } from "./documentElements.js";
+import {createElement, $letsFight, $arenas, $formFight, $fightButton, $loseTitle, $hitDefenceMessagePlayer1, $hitDefenceMessagePlayer2, $reloadButton, $reloadWrap } from "./documentElements.js";
 
 const HIT = {
     head: 30,
@@ -404,6 +404,8 @@ const ANIMATIONS = [
 let player1;
 let player2;
 
+$formFight.style.visibility = 'hidden';
+
 class Game{
     start = async () => {
         const enemy = await this.getEnemyPlayer();
@@ -421,14 +423,19 @@ class Game{
             ...p2,
             player: 2,
             animations: ANIMATIONS.find(item => item.id === p2.id),
-        });        
+        });     
 
+        $arenas.appendChild($letsFight);
+        await sleep(1000);
         $arenas.appendChild(this.createPlayer(player1));
         $arenas.appendChild(this.createPlayer(player2));
 
         $formFight.addEventListener('submit', this.fight)
 
         generateLogs('start', player1, player2);
+        await sleep(1100);
+        $letsFight.parentNode.removeChild($letsFight);
+        $formFight.style.visibility = 'visible';
     }
 
     fight = async event => {       
@@ -537,6 +544,7 @@ class Game{
     }
 
     gotHit = async ({player, animations, img}) => {
+        await sleep (165);
         let playerImage = document.querySelector(`.player${player} .character img`);
         playerImage.src = animations.gothit;
         await sleep(1000);

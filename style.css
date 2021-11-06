@@ -60,6 +60,7 @@ html {
 }
 
 body {
+    display: relative;
     background-color: #424542;
     margin: 0;
     padding: 0;
@@ -366,6 +367,18 @@ body {
     transform: translate(-50%, 0%);
 }
 
+.lets_fight {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 120px;
+    width: 174px;
+    transform: translate(-50%, 0%) scale(2);
+    z-index: 1000;
+    padding: 10px;
+    background-image: url('./assets/fight.gif');
+}
+
 .reloadWrap .button {
     margin-top: 0;
 }
@@ -497,17 +510,28 @@ input[type=radio]:checked + label > span:hover {
       overflow: hidden;
     }
 
+    div[class^="hit-defence__message"] {
+        padding: 5px;
+        border-radius: 10px;
+        font-size: 25px;
+        position: absolute;
+        top: -17%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        box-shadow: 0 0 10px -2px red;
+    }
+
     body {
         transform: scale(0.8);
         background-color: #fff;
     }
     .control {
-        top: 70%;
+        top: 41%;
     }
 
     .progressbar {
-        transform: scale(1.1);
-        top: 30%;
+        transform: scale(1.2);
+        top: 32%;
     }
 
     .progressbar .name {
@@ -515,11 +539,11 @@ input[type=radio]:checked + label > span:hover {
     }
 
     .player1 .progressbar {
-        left: 13%;
+        left: 8%;
     }
     
     .player2 .progressbar {
-        right: 14%;
+        right: 8%;
     }
     .player1 .name {
         left: -5px;
@@ -542,9 +566,17 @@ input[type=radio]:checked + label > span:hover {
         transform: scale(1.1);
         top: 2%;
     }
+    
+    .player1 .progressbar {
+        left: 6%;
+    }
+    
+    .player2 .progressbar {
+        right: 8%;
+    }
     .control {
         left: 50%;
-        top: 10%;
+        top: 8%;
         display: flex;
         transform: translate(-50%) scale(0.8);
     }
@@ -566,10 +598,15 @@ input[type=radio]:checked + label > span:hover {
         border-radius: 10px;
         font-size: 20px;
         position: absolute;
-        top: -9%;
+        top: -7%;
         left: 50%;
         transform: translate(-50%, 0);
         box-shadow: 0 0 10px -2px red;
+    }
+
+    .character {
+        top: 18%;
+        transform: scale(0.99);
     }
 
     .character img {

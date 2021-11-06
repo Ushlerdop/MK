@@ -6,6 +6,7 @@ const $reloadWrap = createElement('div', 'reloadWrap');
 const $reloadButton = createElement('button', 'button');
 const $hitDefenceMessagePlayer1 = createElement('div', 'hit-defence__message_p1');
 const $hitDefenceMessagePlayer2 = createElement('div', 'hit-defence__message_p2');
+const $letsFight = createElement('div', 'lets_fight');
 
 function createElement(tag, className) {
     const $tag = document.createElement(tag);
@@ -16,4 +17,4 @@ function createElement(tag, className) {
     return $tag;
 }
 
-export {$arenas, $fightButton, $loseTitle, $formFight, $hitDefenceMessagePlayer1, $reloadButton, $reloadWrap, $hitDefenceMessagePlayer2, createElement}
+export {$arenas, $letsFight, $fightButton, $loseTitle, $formFight, $hitDefenceMessagePlayer1, $reloadButton, $reloadWrap, $hitDefenceMessagePlayer2, createElement}
