@@ -258,6 +258,7 @@ body {
 
 .character img {
     height: 100%;
+    /* width: 100%; */
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -267,6 +268,7 @@ body {
 
 .character img.attack {
     height: 100%;
+    width: 100%;
     position: absolute;
     bottom: 0;
     left: 50%;

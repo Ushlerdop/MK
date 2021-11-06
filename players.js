@@ -1,6 +1,7 @@
 class Player {
     constructor(props) {
         this.player = props.player;
+        this.animations = props.animations;
         this.name = props.name;
         this.hp = props.hp;
         this.img = props.img;
@@ -23,7 +24,7 @@ class Player {
 
     renderHP = () => {
         this.elHP().style.width = `${this.hp}%`;
-    }    
+    }
 }
 
 export {Player}
