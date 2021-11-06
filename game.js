@@ -74,14 +74,12 @@ const ANIMATIONS = [
             `./assets/fighters/jax/catch.png`,
             `./assets/fighters/jax/ground.png`,
             `./assets/fighters/jax/highkick.gif`,
-            `./assets/fighters/jax/hit.png`,
-            `./assets/fighters/jax/kick.png`,
-            `./assets/fighters/jax/lowkick.png`,
-            `./assets/fighters/jax/uppercot.png`,
-            `./assets/fighters/jax/weapon.png`,
+            `./assets/fighters/jax/kick.gif`,
+            `./assets/fighters/jax/lowkick.gif`,
+            `./assets/fighters/jax/uppercot.gif`,
         ],
         gothit: `./assets/fighters/jax/gothit.png`,
-        victory: `./assets/fighters/jax/victory.png`,
+        victory: `./assets/fighters/jax/victory.gif`,
         defeat: `./assets/fighters/jax/dizzy.gif`,
     },
     {
@@ -510,16 +508,19 @@ class Game{
 
         switch (this.checkTheWinner(player1, player2)) {
             case '1':
+                $formFight.style.visibility = 'hidden';
                 generateLogs('end', player1, player2);
                 this.victory(player1);
                 this.defeat(player2);
                 break;
             case '2':
+                $formFight.style.visibility = 'hidden';
                 generateLogs('end', player2, player1);
                 this.victory(player2);
                 this.defeat(player1);
                 break;
             case 'draw':
+                $formFight.style.visibility = 'hidden';
                 generateLogs('draw', player1, player2);
                 this.defeat(player1);
                 this.defeat(player2);
